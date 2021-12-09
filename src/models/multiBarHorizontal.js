@@ -25,6 +25,7 @@ nv.models.multiBarHorizontal = function() {
         , disabled // used in conjunction with barColor to communicate from multiBarHorizontalChart what series are disabled
         , stacked = false
         , showValues = false
+        , negateTrend = false
         , showBarLabels = true
         , showChecks = false
         , valuePadding = 60
@@ -190,13 +191,13 @@ nv.models.multiBarHorizontal = function() {
                         var v = getY(d, i),
                             b = getY(d.previous, i);
 
-                        return v > b;
+                        return negateTrend ? v < b : v > b;
                     })
                     .classed('negative', function (d, i) {
                         var v = getY(d, i),
                             b = getY(d.previous, i);
 
-                        return v < b;
+                        return negateTrend ? v > b : v < b;
                     })
                     .text(function (d, i) {
                         var v = getY(d, i),
@@ -421,7 +422,7 @@ nv.models.multiBarHorizontal = function() {
             }
 
             bars
-                .attr('class', function(d,i) { return getY(d,i) < 0 ? 'nv-bar negative' : 'nv-bar positive'});
+                .attr('class', function(d,i) { return (negateTrend ? getY(d,i) > 0 : getY(d,i) < 0)  ? 'nv-bar negative' : 'nv-bar positive'});
 
             bars.classed('selected', function(d,i){ return d.selected; });
 
@@ -526,6 +527,7 @@ nv.models.multiBarHorizontal = function() {
         forceY:  {get: function(){return forceY;}, set: function(_){forceY=_;}},
         stacked: {get: function(){return stacked;}, set: function(_){stacked=_;}},
         showValues: {get: function(){return showValues;}, set: function(_){showValues=_;}},
+        negateTrend: {get: function(){return negateTrend;}, set: function(_){negateTrend=_;}},
         // this shows the group name, seems pointless?
         showBarLabels:    {get: function(){return showBarLabels;}, set: function(_){showBarLabels=_;}},
         showChecks:    {get: function(){return showChecks;}, set: function(_){showChecks=_;}},

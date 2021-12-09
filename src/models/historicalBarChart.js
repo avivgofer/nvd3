@@ -31,6 +31,7 @@ nv.models.historicalBarChart = function(bar_model, bar2_model) {
         , x
         , y
         , focusEnable = false
+        , negateTrend = false
         , brushExtent = null
         , state = {}
         , defaultState = null
@@ -284,6 +285,7 @@ nv.models.historicalBarChart = function(bar_model, bar2_model) {
                         return yAxis.tickFormat()(d);
                     })
                     .data({
+                        negateTrend: chart.negateTrend(),
                         value: xValue,
                         index: pointIndex,
                         series: allData
@@ -359,6 +361,7 @@ nv.models.historicalBarChart = function(bar_model, bar2_model) {
             color: evt.color
         };
 
+        evt = {...evt, negateTrend: chart.negateTrend()};
 
         tooltip.data(evt)
             .footerFormatter(footerFormat)
@@ -420,6 +423,7 @@ nv.models.historicalBarChart = function(bar_model, bar2_model) {
         // simple options, just get/set the necessary values
         width:      {get: function(){return width;}, set: function(_){width=_;}},
         height:     {get: function(){return height;}, set: function(_){height=_;}},
+        negateTrend: {get: function(){return negateTrend;}, set: function(_){negateTrend=_;}},
         showLegend: {get: function(){return showLegend;}, set: function(_){showLegend=_;}},
         showChecks: {get: function(){return showChecks;}, set: function(_){showChecks=_;}},
         showXAxis: {get: function(){return showXAxis;}, set: function(_){showXAxis=_;}},

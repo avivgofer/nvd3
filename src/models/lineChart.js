@@ -29,6 +29,7 @@ nv.models.lineChart = function () {
         , x
         , y
         , focusEnable = false
+        , negateTrend = false
         , brushExtent = null
         , state = nv.utils.state()
         , defaultState = null
@@ -385,6 +386,7 @@ nv.models.lineChart = function () {
                 interactiveLayer.tooltip
                     .chartContainer(chart.container.parentNode)
                     .data({
+                        negateTrend: chart.negateTrend(),
                         value: chart.x()(singlePoint, pointIndex),
                         index: pointIndex,
                         series: allData

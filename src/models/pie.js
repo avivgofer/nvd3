@@ -28,6 +28,7 @@ nv.models.pie = function() {
         , startAngle = false
         , padAngle = false
         , endAngle = false
+        , negateTrend = false
         , cornerRadius = 0
         , donutRatio = 0.5
         , arcsRadius = []
@@ -178,8 +179,8 @@ nv.models.pie = function() {
                         var b = getY(d.data.previous, i);
                         var t = refFormat(b > 0 ? (d.value - b) / b : null)
                         pieInfo.select('.ref text').text(t);
-                        pieInfo.select('.ref').classed('positive',  d.value > b );
-                        pieInfo.select('.ref').classed('negative',  d.value < b );
+                        pieInfo.select('.ref').classed('positive', negateTrend ? d.value < b : d.value > b );
+                        pieInfo.select('.ref').classed('negative', negateTrend ? d.value > b : d.value < b );
                     }
                     else {
                         pieInfo.select('.ref text').text('');
@@ -268,8 +269,8 @@ nv.models.pie = function() {
                             var b = getY(d.data.previous);
                             var t = refFormat(b > 0 ? (d.value - b) / b : null)
                             pieInfo.select('.ref text').text(t);
-                            pieInfo.select('.ref').classed('positive',  d.value > b );
-                            pieInfo.select('.ref').classed('negative',  d.value < b );
+                            pieInfo.select('.ref').classed('positive', negateTrend ? d.value < b : d.value > b );
+                            pieInfo.select('.ref').classed('negative', negateTrend ? d.value > b : d.value < b );
                         }
                         else {
                             pieInfo.select('.ref text').text('');
@@ -471,6 +472,7 @@ nv.models.pie = function() {
         startAngle: {get: function(){return startAngle;}, set: function(_){startAngle=_;}},
         padAngle:   {get: function(){return padAngle;}, set: function(_){padAngle=_;}},
         cornerRadius: {get: function(){return cornerRadius;}, set: function(_){cornerRadius=_;}},
+        negateTrend: {get: function(){return negateTrend;}, set: function(_){negateTrend=_;}},
         donutRatio:   {get: function(){return donutRatio;}, set: function(_){donutRatio=_;}},
         labelsOutside: {get: function(){return labelsOutside;}, set: function(_){labelsOutside=_;}},
         labelSunbeamLayout: {get: function(){return labelSunbeamLayout;}, set: function(_){labelSunbeamLayout=_;}},
